@@ -16,7 +16,7 @@ TrainReader:
     - Permute: {}
   batch_transforms:
     - Gt2FairMOTTarget: {}
-  batch_size: 6
+  batch_size: 4
   shuffle: True
   drop_last: True
   use_shared_memory: True
