@@ -54,6 +54,7 @@ class YOLOv3Head(nn.Layer):
         self.data_format = data_format
 
         self.yolo_outputs = []
+        # shrink the channel nums to 255 or 256, mainly depand on the num_classes.
         for i in range(len(self.anchors)):
 
             if self.iou_aware:

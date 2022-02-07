@@ -471,7 +471,7 @@ class YOLOv3FPN(nn.Layer):
         if for_mot:
             return {'yolo_feats': yolo_feats, 'emb_feats': emb_feats}
         else:
-            return yolo_feats
+            return yolo_feats   # return a list of output 4d-tensor with the channel nums 1024,512,256
 
     @classmethod
     def from_config(cls, cfg, input_shape):

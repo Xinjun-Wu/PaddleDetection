@@ -371,6 +371,7 @@ class Trainer(object):
 
         self._compose_callback.on_train_begin(self.status)
 
+        # iterating the epochs
         for epoch_id in range(self.start_epoch, self.cfg.epoch):
             self.status['mode'] = 'train'
             self.status['epoch_id'] = epoch_id
@@ -378,6 +379,7 @@ class Trainer(object):
             self.loader.dataset.set_epoch(epoch_id)
             model.train()
             iter_tic = time.time()
+            # iterating the batchs
             for step_id, data in enumerate(self.loader):
                 self.status['data_time'].update(time.time() - iter_tic)
                 self.status['step_id'] = step_id

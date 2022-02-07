@@ -117,7 +117,9 @@ class YOLOv3Loss(nn.Layer):
         if self.iou_aware_loss:
             ioup, p = p[:, 0:na, :, :], p[:, na:, :, :]
             ioup = ioup.unsqueeze(-1)
+        # split channels for each anchor and transpose
         p = p.reshape((b, na, -1, h, w)).transpose((0, 1, 3, 4, 2))
+        # get the infos of the predicted anchors
         x, y = p[:, :, :, :, 0:1], p[:, :, :, :, 1:2]
         w, h = p[:, :, :, :, 2:3], p[:, :, :, :, 3:4]
         obj, pcls = p[:, :, :, :, 4:5], p[:, :, :, :, 5:]
@@ -126,12 +128,12 @@ class YOLOv3Loss(nn.Layer):
         t = t.transpose((0, 1, 3, 4, 2))
         tx, ty = t[:, :, :, :, 0:1], t[:, :, :, :, 1:2]
         tw, th = t[:, :, :, :, 2:3], t[:, :, :, :, 3:4]
-        tscale = t[:, :, :, :, 4:5]
+        tscale = t[:, :, :, :, 4:5] # a scale para
         tobj, tcls = t[:, :, :, :, 5:6], t[:, :, :, :, 6:]
 
         tscale_obj = tscale * tobj
         loss = dict()
-
+        # ?
         x = scale * F.sigmoid(x) - 0.5 * (scale - 1.)
         y = scale * F.sigmoid(y) - 0.5 * (scale - 1.)
 

@@ -37,12 +37,12 @@ MAIN_PID = os.getpid()
 
 class Compose(object):
     def __init__(self, transforms, num_classes=80):
-        self.transforms = transforms
+        self.transforms = transforms #list
         self.transforms_cls = []
-        for t in self.transforms:
+        for t in self.transforms: # the type of t is dictionary
             for k, v in t.items():
-                op_cls = getattr(transform, k)
-                f = op_cls(**v)
+                op_cls = getattr(transform, k) # get the class of the target operator
+                f = op_cls(**v) # operator instance
                 if hasattr(f, 'num_classes'):
                     f.num_classes = num_classes
 
